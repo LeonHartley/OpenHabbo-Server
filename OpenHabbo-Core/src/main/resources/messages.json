@@ -1,0 +1,4 @@
+{
+  "4000": "com.openhabbo.core.protocol.events.handshake.GetClientVersionMessageEvent",
+  "435": "com.openhabbo.core.protocol.events.handshake.SSOTicketMessageEvent"
+}

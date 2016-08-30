@@ -1,0 +1,7 @@
+#parse('templates/core/header.vm')
+
+<div class="content">
+    Here you shall manage your server!
+</div>
+
+#parse('templates/core/footer.vm')

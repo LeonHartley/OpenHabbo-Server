@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>OpenHabbo - The hangout for teens</title>
+
+    <link rel="stylesheet" type="text/css" href="css/core.css"/>
+</head>
+
+<body>
+
+<div class="container">
+    <ul class="navigation">
+        <li>HOME</li>
+        <li>LOGGING</li>
+        <li>MODERATION</li>
+        <li>CONFIGURATION</li>
+        <li>SUPPORT</li>
+    </ul>
+
+    <div class="banner">
+
+
+    </div>
+
+    <ul class="sub-navigation">
+        <li>Dashboard</li>
+        <li>Updates</li>
+        <li>Statistics</li>
+    </ul>
