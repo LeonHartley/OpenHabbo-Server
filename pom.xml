@@ -156,12 +156,4 @@
             </plugin>
         </plugins>
     </build>
-
-    <repositories>
-        <repository>
-            <id>Coerce</id>
-            <url>https://151.80.207.50/plugin/repository/</url>
-        </repository>
-    </repositories>
-
 </project>
