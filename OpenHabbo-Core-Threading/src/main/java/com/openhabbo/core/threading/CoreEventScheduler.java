@@ -85,6 +85,10 @@ public class CoreEventScheduler implements EventScheduler {
 
     @Override
     public void submit(Runnable runnable) {
+        if(this.executorService == null) {
+            this.initialise();
+        }
+
         this.executorService.submit(runnable);
     }
 }

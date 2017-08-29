@@ -139,7 +139,6 @@ public class FurnitureDefinitionBean implements FurnitureDefinition {
         return canInventoryStack;
     }
 
-
     @Override
     public int getEffectId() {
         return effectId;

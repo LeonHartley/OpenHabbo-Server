@@ -10,7 +10,7 @@ import org.apache.logging.log4j.Logger;
 public class ClientVersionMessageConsumer extends SessionMessageConsumer<GetClientVersionMessageParser> {
     private static final Logger log = LogManager.getLogger(ClientVersionMessageConsumer.class);
 
-    private final String SUPPORTED_VERSION = "PRODUCTION-201602082203-712976078";
+    private final String SUPPORTED_VERSION = "PRODUCTION-201705151314-310198720";
 
     @Override
     public void consume(GetClientVersionMessageParser parser) {
@@ -18,6 +18,7 @@ public class ClientVersionMessageConsumer extends SessionMessageConsumer<GetClie
 
         if(!parser.getClientVersion().equals(SUPPORTED_VERSION)) {
             this.session.disconnect();
+            log.warn("Invalid version, expecting {}, got {}", SUPPORTED_VERSION, parser.getClientVersion());
             return;
         }
 

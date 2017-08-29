@@ -30,88 +30,92 @@ public class CoreFurnitureDefinitionDao extends AbstractDao implements Furniture
     public Map<Integer, FurnitureDefinition> getAllDefinitions() {
         Map<Integer, FurnitureDefinition> furnitureDefinitions = Maps.newHashMap();
 
-//        try (Transaction transaction = this.createTransaction("SELECT * FROM furniture;")) {
-//            while (transaction.getResults().hasResults()) {
-//                final int id = transaction.getResults().getInteger("id");
-//                final String publicName = transaction.getResults().getString("public_name");
-//                final String itemName = transaction.getResults().getString("item_name");
-//                final String type = transaction.getResults().getString("type");
-//                final int width = transaction.getResults().getInteger("width");
-//                final int length = transaction.getResults().getInteger("length");
-//                final int spriteId = transaction.getResults().getInteger("sprite_id");
-//
-//                final boolean canStack = transaction.getResults().getString("can_stack").equals("1");
-//                final boolean canSit = transaction.getResults().getString("can_sit").equals("1");
-//                final boolean canWalk = transaction.getResults().getString("is_walkable").equals("1");
-//                final boolean canTrade = transaction.getResults().getString("allow_trade").equals("1");
-//                final boolean canInventoryStack = transaction.getResults()
-//                        .getString("allow_inventory_stack").equals("1");
-//
-//                final int offerId = transaction.getResults().getInteger("flat_id");
-//
-//                final boolean canRecycle = false;
-//                final boolean canMarket = false;
-//                final boolean canGift = transaction.getResults().getString("allow_gift").equals("1");
-//
-//                final int effectId = transaction.getResults().getInteger("effectid");
-//                final String interaction = transaction.getResults().getString("interaction_type");
-//                final int interactionCycleCount = transaction.getResults().getInteger("interaction_modes_count");
-//                final String vendingIdsData = transaction.getResults().getString("vending_ids");
-//                final Integer[] vendingIds;
-//
-//                if (vendingIdsData != null & !vendingIdsData.isEmpty()) {
-//                    String[] splitData = vendingIdsData.replace(" ", "").split(",");
-//
-//                    vendingIds = new Integer[splitData.length];
-//
-//                    for (int i = 0; i < splitData.length; i++) {
-//                        vendingIds[i] = Integer.parseInt(splitData[i]);
-//                    }
-//                } else {
-//                    vendingIds = null;
-//                }
-//
-//                final boolean requiresRights = transaction.getResults().getString("requires_rights").equals("1");
-//
-//                final int songId = transaction.getResults().getInteger("song_id");
-//
-//                final String variableHeightData = transaction.getResults().getString("variable_heights");
-//
-//                final double stackHeight = transaction.getResults().getDouble("stack_height");
-//                double itemHeight = 0;
-//
-//                Double[] variableHeights = null;
-//
-//                if (!variableHeightData.isEmpty() && variableHeightData.contains(",")) {
-//                    String[] variableHeightArray = variableHeightData.split(",");
-//                    variableHeights = new Double[variableHeightArray.length];
-//
-//                    for (int i = 0; i < variableHeightArray.length; i++) {
-//                        try {
-//                            variableHeights[i] = Double.parseDouble(variableHeightArray[i]);
-//                        } catch (Exception ignored) {
-//
-//                        }
-//                    }
-//                } else {
-//                    variableHeights = null;
-//                }
-//
-//                if (stackHeight == 0.0) {
-//                    itemHeight = 0.001;
-//                } else {
-//                    itemHeight = stackHeight;
-//                }
-//
-//                furnitureDefinitions.put(id, new FurnitureDefinitionBean(id, publicName, itemName, type, width, length,
-//                        itemHeight, spriteId, canStack, canSit, canWalk, canTrade, canRecycle, canMarket, canGift,
-//                        canInventoryStack, effectId, offerId, interaction, interactionCycleCount, vendingIds,
-//                        requiresRights, songId, variableHeights));
-//            }
-//        } catch (Exception e) {
-//            log.error("Error while loading furniture definitions", e);
-//        }
+        final Transaction transaction = this.createTransaction(Transaction.Type.SELECT, "SELECT * FROM furniture;");
 
+        this.queueTransaction(transaction, (results) -> {
+            try {
+                while (results.hasResults()) {
+                    final int id = results.getInteger("id");
+                    final String publicName = results.getString("public_name");
+                    final String itemName = results.getString("item_name");
+                    final String type = results.getString("type");
+                    final int width = results.getInteger("width");
+                    final int length = results.getInteger("length");
+                    final int spriteId = results.getInteger("sprite_id");
+
+                    final boolean canStack = results.getString("can_stack").equals("1");
+                    final boolean canSit = results.getString("can_sit").equals("1");
+                    final boolean canWalk = results.getString("is_walkable").equals("1");
+                    final boolean canTrade = results.getString("allow_trade").equals("1");
+                    final boolean canInventoryStack = results
+                            .getString("allow_inventory_stack").equals("1");
+
+                    final int offerId = results.getInteger("flat_id");
+
+                    final boolean canRecycle = false;
+                    final boolean canMarket = false;
+                    final boolean canGift = results.getString("allow_gift").equals("1");
+
+                    final int effectId = results.getInteger("effect_id");
+                    final String interaction = results.getString("interaction_type");
+                    final int interactionCycleCount = results.getInteger("interaction_modes_count");
+                    final String vendingIdsData = results.getString("vending_ids");
+                    final Integer[] vendingIds;
+
+                    if (vendingIdsData != null & !vendingIdsData.isEmpty()) {
+                        String[] splitData = vendingIdsData.replace(" ", "").split(",");
+
+                        vendingIds = new Integer[splitData.length];
+
+                        for (int i = 0; i < splitData.length; i++) {
+                            vendingIds[i] = Integer.parseInt(splitData[i]);
+                        }
+                    } else {
+                        vendingIds = null;
+                    }
+
+                    final boolean requiresRights = results.getString("requires_rights").equals("1");
+
+                    final int songId = results.getInteger("song_id");
+
+                    final String variableHeightData = results.getString("variable_heights");
+
+                    final double stackHeight = results.getDouble("stack_height");
+                    double itemHeight = 0;
+
+                    Double[] variableHeights = null;
+
+                    if (!variableHeightData.isEmpty() && variableHeightData.contains(",")) {
+                        String[] variableHeightArray = variableHeightData.split(",");
+                        variableHeights = new Double[variableHeightArray.length];
+
+                        for (int i = 0; i < variableHeightArray.length; i++) {
+                            try {
+                                variableHeights[i] = Double.parseDouble(variableHeightArray[i]);
+                            } catch (Exception ignored) {
+
+                            }
+                        }
+                    } else {
+                        variableHeights = null;
+                    }
+
+                    if (stackHeight == 0.0) {
+                        itemHeight = 0.001;
+                    } else {
+                        itemHeight = stackHeight;
+                    }
+
+                    furnitureDefinitions.put(id, new FurnitureDefinitionBean(id, publicName, itemName, type, width, length,
+                            itemHeight, spriteId, canStack, canSit, canWalk, canTrade, canRecycle, canMarket, canGift,
+                            canInventoryStack, effectId, offerId, interaction, interactionCycleCount, vendingIds,
+                            requiresRights, songId, variableHeights));
+                }
+            } catch (Exception e) {
+                log.error("Exception while loading furniture definitions", e);
+            }
+        });
+        
         return furnitureDefinitions;
     }
 }

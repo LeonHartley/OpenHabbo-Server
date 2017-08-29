@@ -17,10 +17,10 @@ public abstract class AbstractMessageComposer implements MessageComposer {
         headers = Maps.newConcurrentMap();
 
         // Load from a file or something ?
-        headers.put(InitCryptoMessageComposer.class, (short) 1621);
-        headers.put(SecretKeyMessageComposer.class, (short) 3963);
-        headers.put(AuthenticationOKMessageComposer.class, (short) 456);
-        headers.put(MotdNotificationMessageComposer.class, (short) 1952);
+        headers.put(InitCryptoMessageComposer.class, (short) 3115);
+        headers.put(SecretKeyMessageComposer.class, (short) 1092);
+        headers.put(AuthenticationOKMessageComposer.class, (short) 223);
+        headers.put(MotdNotificationMessageComposer.class, (short) 2442);
     }
 
     public abstract void onCompose(OutgoingMessagePayload message);

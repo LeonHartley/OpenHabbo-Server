@@ -22,9 +22,9 @@ public class EventHeaderProvider implements IncomingHeaderProvider {
 
         // TODO: Put this in a JSON file or something
         this.eventClasses.put((short) 4000, GetClientVersionMessageEvent.class);
-        this.eventClasses.put((short) 3434, InitCryptoMessageEvent.class);
-        this.eventClasses.put((short) 1924, GenerateSecretKeyMessageEvent.class);
-        this.eventClasses.put((short) 435, SSOTicketMessageEvent.class);
+        this.eventClasses.put((short) 1905, InitCryptoMessageEvent.class);
+        this.eventClasses.put((short) 1127, GenerateSecretKeyMessageEvent.class);
+        this.eventClasses.put((short) 2190, SSOTicketMessageEvent.class);
     }
 
     @Override
