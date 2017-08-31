@@ -4,7 +4,8 @@ import com.openhabbo.api.game.players.inventory.types.FurnitureInventoryItem;
 
 import java.util.Map;
 import java.util.UUID;
+import java.util.function.Consumer;
 
 public interface PlayerInventoryDao {
-    void getFurnitureInventory(int playerId, Map<UUID, FurnitureInventoryItem> onComplete);
+    void getFurnitureInventory(int playerId, Consumer<Map<UUID, FurnitureInventoryItem>> onComplete);
 }

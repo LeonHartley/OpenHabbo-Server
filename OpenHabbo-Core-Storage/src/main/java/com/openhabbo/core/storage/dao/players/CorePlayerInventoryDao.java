@@ -12,6 +12,7 @@ import com.openhabbo.core.storage.dao.DaoEventScheduler;
 import javax.inject.Inject;
 import java.util.Map;
 import java.util.UUID;
+import java.util.function.Consumer;
 
 public class CorePlayerInventoryDao extends AbstractDao implements PlayerInventoryDao {
     @Inject
@@ -20,7 +21,7 @@ public class CorePlayerInventoryDao extends AbstractDao implements PlayerInvento
     }
 
     @Override
-    public void getFurnitureInventory(int playerId, Map<UUID, FurnitureInventoryItem> onComplete) {
+    public void getFurnitureInventory(int playerId, Consumer<Map<UUID, FurnitureInventoryItem>> onComplete) {
 //        Transaction transaction = this.createTransaction(Transaction.Type.SELECT, "SELECT * FROM items WHERE player_id = :playerId AND room_id = 0");
 //
 //        transaction.bindParam("playerId", playerId);

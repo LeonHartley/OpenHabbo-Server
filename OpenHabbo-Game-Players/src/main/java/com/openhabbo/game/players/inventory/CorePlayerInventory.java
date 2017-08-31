@@ -24,6 +24,8 @@ public class CorePlayerInventory implements PlayerInventory {
         this.player = player;
 
         this.inventoryItems = Maps.newConcurrentMap();
+
+        inventoryDao.getFurnitureInventory(this.player.getData().getId(), this.inventoryItems::putAll);
     }
 
     @Override
@@ -34,20 +36,19 @@ public class CorePlayerInventory implements PlayerInventory {
     @Override
     public void addItem(FurnitureInventoryItem inventoryItem) {
         this.inventoryItems.put(inventoryItem.getId(), inventoryItem);
-
-        // send the item to the player?
+        // sync with client?
     }
 
     @Override
     public void removeItem(UUID id) {
         this.inventoryItems.remove(id);
-
-        // sync inventory?
+        // sync with client?
     }
 
     @Override
     public void clear() {
-
+        this.inventoryItems.clear();
+        // send packet?
     }
 
     @Override
@@ -57,6 +58,6 @@ public class CorePlayerInventory implements PlayerInventory {
 
     @Override
     public void dispose() {
-
+        this.inventoryItems.clear();
     }
 }
