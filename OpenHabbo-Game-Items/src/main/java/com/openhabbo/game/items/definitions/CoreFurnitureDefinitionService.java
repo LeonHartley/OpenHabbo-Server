@@ -18,9 +18,11 @@ public class CoreFurnitureDefinitionService implements FurnitureDefinitionServic
 
     @Inject
     public CoreFurnitureDefinitionService(final FurnitureDefinitionDao furnitureDefinitionDao) {
-        this.furnitureDefinitions = furnitureDefinitionDao.getAllDefinitions();
+        furnitureDefinitionDao.getAllDefinitions((definitions) -> {
+            this.furnitureDefinitions = definitions;
 
-        log.info("Loaded {} furniture definitions", this.furnitureDefinitions.size());
+            log.info("Loaded {} furniture definitions", this.furnitureDefinitions.size());
+        });
     }
 
     @Override

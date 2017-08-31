@@ -4,7 +4,8 @@ import com.openhabbo.api.game.navigator.categories.NavigatorCategory;
 import com.openhabbo.api.storage.dao.Dao;
 
 import java.util.Map;
+import java.util.function.Consumer;
 
 public interface NavigatorCategoryDao {
-    Map<Integer, NavigatorCategory> getAllCategories();
+    void getAllCategories(Consumer<Map<Integer, NavigatorCategory>> onComplete);
 }

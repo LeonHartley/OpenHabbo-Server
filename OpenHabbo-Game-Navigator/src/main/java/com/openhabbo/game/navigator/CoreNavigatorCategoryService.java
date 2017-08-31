@@ -13,13 +13,15 @@ import java.util.Map;
 @Singleton
 public class CoreNavigatorCategoryService implements NavigatorCategoryService {
     private static final Logger log = LogManager.getLogger(CoreNavigatorCategoryService.class);
-    private final Map<Integer, NavigatorCategory> navigatorCategories;
+    private Map<Integer, NavigatorCategory> navigatorCategories;
 
     @Inject
     public CoreNavigatorCategoryService(NavigatorCategoryDao navigatorCategoryDao) {
-        this.navigatorCategories = navigatorCategoryDao.getAllCategories();
+        navigatorCategoryDao.getAllCategories((categories) -> {
+            this.navigatorCategories = categories;
 
-        log.info("Loaded {} navigator categories", this.navigatorCategories.size());
+            log.info("Loaded {} navigator categories", this.navigatorCategories.size());
+        });
     }
 
     @Override

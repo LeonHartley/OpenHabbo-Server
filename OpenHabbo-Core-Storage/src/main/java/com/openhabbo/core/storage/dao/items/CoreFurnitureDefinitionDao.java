@@ -15,6 +15,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.util.Map;
+import java.util.function.Consumer;
 
 @Singleton
 public class CoreFurnitureDefinitionDao extends AbstractDao implements FurnitureDefinitionDao {
@@ -27,7 +28,7 @@ public class CoreFurnitureDefinitionDao extends AbstractDao implements Furniture
     }
 
     @Override
-    public Map<Integer, FurnitureDefinition> getAllDefinitions() {
+    public void getAllDefinitions(Consumer<Map<Integer, FurnitureDefinition>> onComplete) {
         Map<Integer, FurnitureDefinition> furnitureDefinitions = Maps.newHashMap();
 
         final Transaction transaction = this.createTransaction(Transaction.Type.SELECT, "SELECT * FROM furniture;");
@@ -114,8 +115,8 @@ public class CoreFurnitureDefinitionDao extends AbstractDao implements Furniture
             } catch (Exception e) {
                 log.error("Exception while loading furniture definitions", e);
             }
+
+            onComplete.accept(furnitureDefinitions);
         });
-        
-        return furnitureDefinitions;
     }
 }

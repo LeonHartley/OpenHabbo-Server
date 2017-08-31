@@ -7,6 +7,8 @@ import com.openhabbo.api.game.navigator.categories.NavigatorCategoryService;
 import com.openhabbo.api.game.players.Player;
 import com.openhabbo.api.game.players.PlayerFactory;
 import com.openhabbo.api.game.players.auth.AuthenticationService;
+import com.openhabbo.api.game.players.inventory.PlayerInventory;
+import com.openhabbo.api.game.players.inventory.PlayerInventoryFactory;
 import com.openhabbo.api.modules.events.SystemEventRegistry;
 import com.openhabbo.api.game.groups.GroupFactory;
 import com.openhabbo.api.game.groups.GroupService;
@@ -23,6 +25,7 @@ import com.openhabbo.api.storage.dao.groups.GroupDao;
 import com.openhabbo.api.storage.dao.items.FurnitureDefinitionDao;
 import com.openhabbo.api.storage.dao.navigator.NavigatorCategoryDao;
 import com.openhabbo.api.storage.dao.players.PlayerDao;
+import com.openhabbo.api.storage.dao.players.inventory.PlayerInventoryDao;
 import com.openhabbo.api.threading.EventScheduler;
 import com.openhabbo.core.modules.events.CoreEventRegistry;
 import com.openhabbo.core.networking.CoreNetworkingService;
@@ -36,6 +39,7 @@ import com.openhabbo.core.storage.dao.groups.CoreGroupDao;
 import com.openhabbo.core.storage.dao.items.CoreFurnitureDefinitionDao;
 import com.openhabbo.core.storage.dao.navigator.CoreNavigatorCategoryDao;
 import com.openhabbo.core.storage.dao.players.CorePlayerDao;
+import com.openhabbo.core.storage.dao.players.CorePlayerInventoryDao;
 import com.openhabbo.core.threading.CoreEventScheduler;
 import com.openhabbo.game.groups.CoreGroupService;
 import com.openhabbo.game.groups.types.GroupInstance;
@@ -43,6 +47,7 @@ import com.openhabbo.game.items.definitions.CoreFurnitureDefinitionService;
 import com.openhabbo.game.navigator.CoreNavigatorCategoryService;
 import com.openhabbo.game.players.PlayerInstance;
 import com.openhabbo.game.players.auth.PlayerAuthenticationService;
+import com.openhabbo.game.players.inventory.CorePlayerInventory;
 
 
 public class OpenHabboModule extends AbstractModule {
@@ -85,6 +90,7 @@ public class OpenHabboModule extends AbstractModule {
         bind(GroupDao.class).to(CoreGroupDao.class);
         bind(NavigatorCategoryDao.class).to(CoreNavigatorCategoryDao.class);
         bind(FurnitureDefinitionDao.class).to(CoreFurnitureDefinitionDao.class);
+        bind(PlayerInventoryDao.class).to(CorePlayerInventoryDao.class);
     }
 
     private void bindGroups() {
@@ -99,6 +105,10 @@ public class OpenHabboModule extends AbstractModule {
         install(new FactoryModuleBuilder()
                 .implement(Player.class, PlayerInstance.class)
                 .build(PlayerFactory.class));
+
+        install(new FactoryModuleBuilder()
+                .implement(PlayerInventory.class, CorePlayerInventory.class)
+                .build(PlayerInventoryFactory.class));
 
         bind(AuthenticationService.class).to(PlayerAuthenticationService.class);
     }

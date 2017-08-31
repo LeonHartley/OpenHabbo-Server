@@ -2,23 +2,29 @@ package com.openhabbo.game.players;
 
 import com.google.inject.Inject;
 import com.google.inject.assistedinject.Assisted;
+import com.openhabbo.api.attributes.AbstractAttributable;
 import com.openhabbo.api.game.players.Player;
 import com.openhabbo.api.game.players.PlayerData;
 import com.openhabbo.api.game.players.inventory.PlayerInventory;
+import com.openhabbo.api.game.players.inventory.PlayerInventoryFactory;
 import com.openhabbo.api.game.rooms.avatars.types.PlayerAvatar;
 import com.openhabbo.api.networking.sessions.Session;
 
-public class PlayerInstance implements Player {
+public class PlayerInstance extends AbstractAttributable implements Player {
 
     private final Session session;
     private final PlayerData playerData;
 
+    private PlayerInventory playerInventory;
+
     private PlayerAvatar playerAvatar;
 
     @Inject
-    public PlayerInstance(@Assisted Session session, @Assisted PlayerData playerData) {
+    public PlayerInstance(@Assisted Session session, @Assisted PlayerData playerData, PlayerInventoryFactory inventoryFactory) {
         this.session = session;
         this.playerData = playerData;
+
+        this.playerInventory = inventoryFactory.create(this);
     }
 
     @Override
